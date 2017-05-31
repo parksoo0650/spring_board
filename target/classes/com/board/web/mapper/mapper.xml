@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.web.mapper.Mapper" >
+
+	<resultMap id="Article" type="com.board.web.domain.ArticleBean">
+		 <id property="seqNo" column="seq_no"/>
+      <result property="writer" column="writer"/>
+      <result property="title" column="title"/>
+      <result property="content" column="content"/>
+      <result property="regiDate" column="regi_date"/>
+      <result property="hitCount" column="count"/>
+      <result property="file" column="file"/>
+	</resultMap>
+	
+   <insert id="writeArticle">
+    INSERT INTO ${group}(writer,title,content,regi_date,count,file) 
+   VALUES ( #{writer}, #{title}, #{content}, #{regiDate}, #{file}, #{email},#{job}, #{jumin}, #{addr}, #{docID}, #{nurID})
+   </insert>
+  
+  <select id="findPatient" resultMap="Patient" parameterType="hashMap">
+  	SELECT * FROM ${group} WHERE ${key} = #{value}
+  </select>
+  
+<!--   <select id="findPatients" resultMap="Patient" parameterType="hashMap">
+  	SELECT * FROM ${group} 
+  	 WHERE
+	  <if test="state != null">
+	    state = #{state}
+	  </if>
+	  <if test="title != null">
+	    AND title like #{title}
+	  </if>
+	  <if test="author != null and author.name != null">
+	    AND author_name like #{author.name}
+	  </if>
+  </select> -->
+ 
+  <select id="articleList" resultMap="Article" parameterType="hashMap">
+		select t2.*
+			from (select @ROWNUM := @ROWNUM + 1 AS rownum
+		            ,t.title 
+		            ,t.content 
+		            ,t.reg_date
+		            ,t.art_seq 
+     		from   Article t
+           ,(SELECT @ROWNUM := 0) R
+			     ORDER BY t.reg_date DESC
+		     ) t2
+		where t2.rownum between #{startRow} and #{endRow}
+		order by t2.rownum asc;
+	</select>
+	
+  <select id="totalCount" resultType="int" parameterType="hashMap">
+    	SELECT COUNT(*) AS count FROM ${group}
+  </select>
+  
+  <!-- <select id="exist" resultType="int" parameterType="hashMap">
+     SELECT COUNT(*) FROM ${group} WHERE ${key} = #{value}
+  </select> -->
+  <update id="updateArticle">
+  UPDATE ${group}
+    <set>
+      <if test="username != null">username=#{username},</if>
+      <if test="password != null">password=#{password},</if>
+      <if test="email != null">email=#{email},</if>
+      <if test="bio != null">bio=#{bio}</if>
+    </set>
+  WHERE ${key}=#{value}
+</update>
+
+  
+  <delete id="deleteArticle" parameterType="hashMap">
+		DELETE 
+		FROM ${group} 
+		WHERE ${key} = #{value}
+	</delete>
+    </mapper>
+
