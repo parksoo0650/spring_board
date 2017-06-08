@@ -1,5 +1,8 @@
 package com.board.web.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ArticleBean {
 	public String seqNo,writer,title,content,regiDate,hitCount,file;
 
