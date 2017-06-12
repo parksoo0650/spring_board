@@ -123,7 +123,6 @@ var upload='<h1>ARTICLE UPLOAD</h1>'
 									$('#wrapper').append(list);
 								});
 							});
-							$('#wrapper').append(list);
 							$('#upload').on('click',function(){
 								$('#wrapper').empty();
 								$('#wrapper').append(upload);

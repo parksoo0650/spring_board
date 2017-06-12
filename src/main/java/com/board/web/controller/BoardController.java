@@ -16,6 +16,6 @@ public class BoardController {
 	
 	@RequestMapping("/")
 	public String goMain(){
-		return "/board/list";
+		return "public:board/list";
 	}
 }
