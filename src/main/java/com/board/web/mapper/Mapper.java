@@ -5,15 +5,16 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.board.web.domain.ArticleBean;
+import com.board.web.domain.Article;
 
 @Repository
 public interface Mapper {
-	public void insert(ArticleBean article);
-	public int count(ArticleBean article);
-	public ArticleBean selectArticle(ArticleBean article);
-	public List<ArticleBean> selectSome(Map<String, Object> map);
-	public void delete (ArticleBean article);
-	public void update(ArticleBean article);
+	public void insert(Article article);
+	public int count(Article article);
+	public Article selectArticle(Article article);
+	public List<Article> selectSome(Map<String, Object> map);
+	public List<Article> selectList(Map<String, Object> map);
+	public void delete (Article article);
+	public void update(Article article);
 
 }

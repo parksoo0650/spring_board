@@ -3,7 +3,7 @@ package com.board.web.domain;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ArticleBean {
+public class Article {
 	public String seqNo,writer,title,content,regiDate,hitCount,file;
 
 	public String getSeqNo() {

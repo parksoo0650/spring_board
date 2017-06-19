@@ -4,30 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.board.web.domain.ArticleBean;
+import com.board.web.domain.Article;
+import com.board.web.mapper.Mapper;
 
 @Service
 public class BoardService {
-	public void writeArticle(ArticleBean article){
+	@Autowired Mapper mapper;
+	public void writeArticle(Article article){
 		
 	}
 	public int numberOfArticles(){
 	  return 0;	
 	}
-	public ArticleBean findArticle(ArticleBean article){
+	public Article findArticle(Article article){
 		return article;
 	}
-	public List<ArticleBean> findArticles(Map<String, Object>map){
-		List<ArticleBean> list = new ArrayList<>();
+	public List<Article> findArticles(Map<String, Object>map){
+		List<Article> list = new ArrayList<>();
 		return list;
 	}
-	public void update(ArticleBean article){
+	@SuppressWarnings("unchecked")
+	public List<Article> allArticles(Map<String, Object>map){
+		List<Article> list = new ArrayList<>();
+		IGetService service = (paramMap) -> mapper.selectList(map);
+		return (List<Article>) service.excute(map);
+	}
+	public void update(Article article){
 		
 	}
-	public void delete (ArticleBean article){
+	public void delete (Article article){
 		
 	}
 
